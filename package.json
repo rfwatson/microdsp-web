@@ -1,0 +1,16 @@
+{
+  "name": "pnpm-workspace",
+  "version": "0.0.1",
+  "main": "index.ts",
+  "scripts": {
+    "build": "pnpm run build:wasm && pnpm run build:lib && pnpm run build:example",
+    "build:wasm": "wasm-pack build --target bundler --out-dir packages/lib/wasm --out-name main",
+    "build:lib": "pnpm --filter @workspace/lib run build",
+    "build:example": "pnpm --filter example run build",
+    "start": "pnpm --filter example run dev"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.1",
+    "prettier": "^3.6.2"
+  }
+}
