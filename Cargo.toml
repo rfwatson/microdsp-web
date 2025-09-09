@@ -4,3 +4,9 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+microdsp = "0.1.3"
+wasm-bindgen = "0.2.101"
+wasm-bindgen-futures = "0.4.51"
+
+[lib]
+crate-type = ["cdylib"]
