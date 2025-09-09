@@ -1,7 +1,4 @@
-import './style.css';
-
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <h1>mpm-web</h1>
-  </div>
-`;
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap';
+import 'bootstrap/scss/bootstrap.scss';
+import './style.scss';

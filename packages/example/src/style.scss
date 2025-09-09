@@ -1,0 +1,34 @@
+$black: #000000;
+$black2: #121212;
+$white: #fcfcfc;
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background: $black;
+  color: $white;
+  text-align: center;
+}
+
+h1 {
+  text-align: center;
+}
+
+#app {
+  background: $black2;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 1200px;
+
+  h1 {
+    font-size: 3rem;
+    margin-top: 2rem;
+  }
+}

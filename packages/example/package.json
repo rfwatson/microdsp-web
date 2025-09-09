@@ -10,10 +10,13 @@
   },
   "devDependencies": {
     "@workspace/lib": "workspace:*",
+    "sass": "^1.92.1",
     "typescript": "~5.8.3",
     "vite": "^7.1.2"
   },
   "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.8",
     "vite-plugin-wasm": "^3.5.0"
   }
 }
