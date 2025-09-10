@@ -4,7 +4,7 @@
   "main": "index.ts",
   "scripts": {
     "build": "pnpm run build:wasm && pnpm run build:lib && pnpm run build:example",
-    "build:wasm": "wasm-pack build --target bundler --out-dir packages/lib/wasm --out-name main",
+    "build:wasm": "wasm-pack build --target web --out-dir packages/lib/wasm --out-name main",
     "build:lib": "pnpm --filter @workspace/lib run build",
     "build:example": "pnpm --filter example run build",
     "start": "pnpm --filter example run dev"

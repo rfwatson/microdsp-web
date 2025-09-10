@@ -6,8 +6,60 @@
     <title>mpm-web example</title>
   </head>
   <body>
-    <div id="app">
-      <h1>mpm-web example</h1>
+    <div id="app" class="container container-md min-vh-100 py-2 px-4">
+      <div class="jumbotron">
+        <h1 class="display-2">Real-time pitch detection</h1>
+
+        <p class="lead">
+          This is an example of real-time pitch detection in the browser using the MPM algorithm.
+        </p>
+
+        <p class="lead">
+          The page loads the mpm module of the <a href="https://crates.io/crates/microdsp" target="_blank">microdsp</a> crate (written in Rust and compiled to WebAssembly) and calls it in an AudioWorklet to detect the pitch of an audio input source in real-time.
+        </p>
+
+        <p class="lead">
+          Select an audio input source - either microphone or a tone generator - and click "Run" to start pitch detection.
+        </p>
+
+      </div>
+
+      <p class="lead mt-4">
+        <button class="btn btn-success btn-lg align-middle" style="width: 10rem !important" id="start-button">Run</button>
+
+        <select class="form-select form-select-lg d-inline-block w-auto align-middle me-2" id="input-select" aria-label="Default select example">
+          <option value="mic" selected>Microphone</option>
+          <option value="tone">Tone</option>
+        </select>
+
+        <span id="range-container" class="d-none">
+          <label for="freq-range" style="min-width: 5rem" class="form-label">440 Hz</label>
+          <input type="range" class="form-range d-inline-block w-25 align-middle" value="440" min="100" max="4000" step="1" id="freq-range">
+        </span>
+      </p>
+
+      <dl class="row">
+        <dt class="col-sm-2 text-secondary">Status</dt>
+        <dd class="col-sm-9 mb-2" id="status"><span class="badge"></span></dd>
+
+        <dt class="col-sm-2 text-secondary">Detected pitch</dt>
+        <dd class="col-sm-9 mb-2" id="pitch">-</dd>
+
+        <dt class="col-sm-2 text-secondary">Clarity</dt>
+        <dd class="col-sm-9 mb-2" id="clarity">-</dd>
+
+        <dt class="col-sm-2 text-secondary">Frames processed</dt>
+        <dd class="col-sm-9 mb-0" id="frames-processed">0</dd>
+      </dl>
+
+      <p class="mt-5">
+        <h3>Links</h3>
+        <ul>
+          <li><a href="https://www.cs.otago.ac.nz/graphics/Geoff/tartini/papers/A_Smarter_Way_to_Find_Pitch.pdf" target="_blank">A Smarter Way to Find Pitch</a>, Philip McLeod and Geoff Wyvill, 2005</li>
+          <li><a href="https://crates.io/crates/microdsp" target="_blank">microdsp crate</a></li>
+        </ul>
+      </p>
+
       <script type="module" src="/src/main.ts"></script>
     </div>
   </body>

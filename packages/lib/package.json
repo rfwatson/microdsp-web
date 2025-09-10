@@ -6,6 +6,16 @@
   "scripts": {
     "build": "tsc && vite build"
   },
+  "main": "./src/main.ts",
+  "types": "./wasm/main.d.ts",
+  "exports": {
+    ".": {
+      "import": "./src/main.ts",
+      "types": "./wasm/main.d.ts"
+    },
+    "./wasm/*": "./wasm/*"
+  },
+  "files": ["src", "wasm"],
   "devDependencies": {
     "typescript": "~5.8.3",
     "vite": "^7.1.2"

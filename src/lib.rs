@@ -1,4 +1,4 @@
-pub use microdsp::mpm::MpmPitchDetector;
+pub use microdsp::mpm::{MpmPitchDetector, MpmPitchResult};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen_futures::js_sys;
 
@@ -16,10 +16,12 @@ impl WasmPitchDetector {
     pub fn process(&mut self, buffer: &[f32], callback: &js_sys::Function) {
         self.0.process(buffer, |res| {
             callback
-                .call2(
+                .call4(
                     &JsValue::NULL,
                     &JsValue::from_f64(res.frequency as f64),
                     &JsValue::from_f64(res.clarity as f64),
+                    &JsValue::from_f64(res.midi_note_number as f64),
+                    &JsValue::from_bool(res.is_tone()),
                 )
                 .unwrap();
         });

@@ -1,4 +1,1 @@
-import { WasmPitchDetector } from '../wasm/main';
-
-// For now, just re-export the WASM module.
-export default WasmPitchDetector;
+export { default as init, initSync, WasmPitchDetector } from '../wasm/main';

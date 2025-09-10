@@ -1,34 +1,19 @@
-$black: #000000;
-$black2: #121212;
-$white: #fcfcfc;
-
-html,
-body {
-  height: 100%;
-  margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
+$black: #000103;
+$white: #fffffa;
+$red: #ff312e;
+$grey2: #333138;
+$grey3: #515052;
 
 body {
-  background: $black;
+  background: $grey3;
   color: $white;
-  text-align: center;
-}
-
-h1 {
-  text-align: center;
 }
 
 #app {
-  background: $black2;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
-  max-width: 1200px;
+  background: $black;
+}
 
-  h1 {
-    font-size: 3rem;
-    margin-top: 2rem;
-  }
+a,
+a:visited {
+  color: $red;
 }
