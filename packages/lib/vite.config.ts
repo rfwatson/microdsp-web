@@ -7,7 +7,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/main.ts'),
-      name: 'mpm-web',
+      name: 'microdsp-web',
       formats: ['es'],
     },
     target: 'esnext',

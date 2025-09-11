@@ -1,15 +1,21 @@
-pub use microdsp::mpm::{MpmPitchDetector, MpmPitchResult};
+pub use microdsp::mpm::{
+    MpmPitchDetector as MpmPitchDetectorInner, MpmPitchResult as MpmPitchResultInner,
+};
 use wasm_bindgen::prelude::*;
 use wasm_bindgen_futures::js_sys;
 
 #[wasm_bindgen]
-pub struct WasmPitchDetector(MpmPitchDetector);
+pub struct MpmPitchDetector(MpmPitchDetectorInner);
 
 #[wasm_bindgen]
-impl WasmPitchDetector {
+impl MpmPitchDetector {
     #[wasm_bindgen(constructor)]
     pub fn new(sample_rate: f32, window_size: usize, hop_size: usize) -> Self {
-        Self(MpmPitchDetector::new(sample_rate, window_size, hop_size))
+        Self(MpmPitchDetectorInner::new(
+            sample_rate,
+            window_size,
+            hop_size,
+        ))
     }
 
     #[wasm_bindgen]

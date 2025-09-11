@@ -7,6 +7,17 @@ $grey3: #515052;
 body {
   background: $grey3;
   color: $white;
+
+  --bs-body-font-family:
+    'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue',
+    'Noto Sans', 'Liberation Sans', Arial, sans-serif;
+  --bs-font-monospace:
+    'JetBrains Mono', ui-monospace, SFMono-Regular, 'Cascadia Mono',
+    'DejaVu Sans Mono', 'Noto Sans Mono', 'Liberation Mono', Menlo, Monaco,
+    Consolas, 'Courier New', monospace;
+
+  --bs-body-font-size: 1rem;
+  --bs-body-line-height: 1.6;
 }
 
 #app {
@@ -16,4 +27,8 @@ body {
 a,
 a:visited {
   color: $red;
+}
+
+pre {
+  display: inline-block;
 }
