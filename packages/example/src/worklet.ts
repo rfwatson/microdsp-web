@@ -10,7 +10,6 @@ class Processor extends AudioWorkletProcessor {
     initSync(processorOptions.module);
 
     this.pitchDetector = new WasmPitchDetector(sampleRate, 2_048, 512);
-    console.log('AudioWorkletProcessor initialized');
   }
 
   process(

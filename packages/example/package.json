@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "e2e:preview": "pnpm run build && vite preview --port 3001 --outDir dist/"
   },
   "devDependencies": {
     "@types/audioworklet": "^0.0.83",

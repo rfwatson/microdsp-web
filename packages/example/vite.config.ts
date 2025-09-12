@@ -5,7 +5,7 @@ export default defineConfig({
   plugins: [wasm()],
   build: {
     rollupOptions: {
-      input: 'src/main.ts',
+      input: 'index.html',
       output: {
         entryFileNames: '[name].js',
         format: 'esm',
@@ -13,5 +13,9 @@ export default defineConfig({
     },
     target: 'esnext',
     outDir: 'dist',
+  },
+  server: {
+    port: 3000,
+    strictPort: true,
   },
 });

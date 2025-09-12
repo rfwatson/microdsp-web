@@ -3,6 +3,7 @@ import 'bootstrap';
 import 'bootstrap/scss/bootstrap.scss';
 import './style.scss';
 import wasmUrl from '@workspace/lib/wasm/main_bg.wasm?url';
+import workletUrl from './worklet.js?worker&url';
 
 interface Elements {
   startButton: HTMLButtonElement;
@@ -39,6 +40,11 @@ class Example {
 
     // Web audio graph
     this.audioContext = audioContext;
+    this.audioContext.addEventListener(
+      'statechange',
+      this.handleAudioContextStateChange,
+    );
+
     this.nodes = this.buildNodes(wasmModule);
 
     // Event handlers
@@ -54,8 +60,8 @@ class Example {
       console.warn('Microphone not available');
       this.el.select.value = 'tone';
       this.el.select.disabled = true;
-      this.nodes.oscillator.connect(this.nodes.worklet);
-      this.nodes.oscillator.connect(this.nodes.gain);
+
+      this.enableTone();
     }
   }
 
@@ -67,7 +73,6 @@ class Example {
     const oscillator = this.audioContext.createOscillator();
     oscillator.frequency.value = 440;
     oscillator.type = 'sine';
-    oscillator.start();
 
     const worklet = new AudioWorkletNode(this.audioContext, 'audio-worklet', {
       processorOptions: { module: wasmModule },
@@ -82,17 +87,13 @@ class Example {
   }
 
   private bindEventHandlers() {
-    this.audioContext.addEventListener(
-      'statechange',
-      this.handleAudioContextStateChange,
-    );
-
     this.el.select.addEventListener('change', this.handleSelectChange);
     this.el.startButton.addEventListener('click', this.handleStartButtonClick);
     this.el.range.addEventListener('input', this.handleFreqChanged);
   }
 
   private handleAudioContextStateChange = () => {
+    console.log(`AudioContext state changed to: ${this.audioContext.state}`);
     if (this.audioContext.state === 'running') {
       this.el.status.textContent = 'running';
       this.el.startButton.textContent = 'Pause';
@@ -172,6 +173,7 @@ class Example {
 
     this.nodes.oscillator.connect(this.nodes.worklet);
     this.nodes.oscillator.connect(this.nodes.gain);
+    this.nodes.oscillator.start();
 
     this.el.rangeContainer.classList.remove('d-none');
     this.el.rangeContainer.classList.add('d-inline');
@@ -220,9 +222,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   selectEl.value = 'mic';
 
   const audioContext = new AudioContext();
-  await audioContext.audioWorklet.addModule(
-    new URL('./worklet.ts', import.meta.url),
-  );
+  await audioContext.audioWorklet.addModule(workletUrl);
 
   const bytes = await (await fetch(wasmUrl)).arrayBuffer();
   const module = await WebAssembly.compile(bytes);
@@ -243,4 +243,5 @@ document.addEventListener('DOMContentLoaded', async () => {
     module,
   );
   example.tryUserMedia();
+  document.documentElement.setAttribute('data-app-ready', 'true');
 });
