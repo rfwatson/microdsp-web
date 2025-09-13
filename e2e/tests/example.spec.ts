@@ -22,7 +22,6 @@ test('loads the example page', async ({ page }) => {
     await page.waitForTimeout(500);
   }
 
-  await page.waitForTimeout(1_000);
   await expect(button).toHaveText('Pause');
 
   // mic mode

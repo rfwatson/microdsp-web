@@ -1,1 +1,1 @@
-export { default as init, initSync, WasmPitchDetector } from '../wasm/main';
+export { default as init, initSync, MpmPitchDetector } from '../wasm/main';

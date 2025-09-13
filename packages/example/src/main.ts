@@ -120,7 +120,7 @@ class Example {
     }
   };
 
-  private handleStartButtonClick = async () => {
+  private handleStartButtonClick = () => {
     if (this.audioContext.state === 'suspended') {
       this.audioContext.resume();
       this.el.startButton.classList.add('btn-secondary');

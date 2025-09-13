@@ -9,7 +9,8 @@
     "typescript-eslint": "^8.43.0"
   },
   "scripts": {
-    "test": "playwright test --headed",
+    "test:headed": "playwright test -g headed",
+    "test:headless": "playwright test -g headless",
     "lint": "pnpm exec eslint",
     "lint:fix": "pnpm exec eslint --fix"
   }

@@ -1,15 +1,15 @@
-import { initSync, WasmPitchDetector } from '@workspace/lib';
+import { initSync, MpmPitchDetector } from '@workspace/lib';
 import type { ProcessorOptions } from './types';
 
 class Processor extends AudioWorkletProcessor {
-  pitchDetector: WasmPitchDetector;
+  pitchDetector: MpmPitchDetector;
 
   constructor({ processorOptions }: { processorOptions: ProcessorOptions }) {
     super();
 
     initSync(processorOptions.module);
 
-    this.pitchDetector = new WasmPitchDetector(sampleRate, 2_048, 512);
+    this.pitchDetector = new MpmPitchDetector(sampleRate, 2_048, 512);
   }
 
   process(inputs: Float32Array[][]): boolean {

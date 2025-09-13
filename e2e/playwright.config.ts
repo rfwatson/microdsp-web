@@ -14,11 +14,11 @@ export default defineConfig({
   projects: [
     {
       // NOTE: Chromium tests MUST be run in headed mode.
-      name: 'web-chromium',
+      name: 'web-chromium-headed',
       use: {
         ...devices['Desktop Chrome'],
         baseURL: 'http://localhost:3000',
-        bypassCSP: true,
+        headless: false,
         launchOptions: {
           args: [
             '--use-fake-device-for-media-stream',
@@ -31,15 +31,18 @@ export default defineConfig({
       },
     },
     {
-      name: 'web-firefox',
+      name: 'web-firefox-headless',
       use: {
         ...devices['Desktop Firefox'],
         baseURL: 'http://localhost:3000',
+        headless: true,
         launchOptions: {
           firefoxUserPrefs: {
             'media.navigator.permission.disabled': true,
             'media.navigator.streams.fake': true,
             'media.navigator.audio.fake_frequency': 400,
+            'media.autoplay.block-webaudio': false,
+            // 'media.block-autoplay-until-in-foreground': false,
           },
         },
       },

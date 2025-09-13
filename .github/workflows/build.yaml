@@ -1,0 +1,63 @@
+name: build
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+      - uses: jetli/wasm-pack-action@v0.4.0
+        with:
+          version: latest
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "pnpm"
+      - name: Install dependencies
+        run: pnpm install
+      - name: Build
+        run: pnpm run build
+      - name: Check Typescript
+        run: |
+          pnpm --filter lib exec tsc --noEmit
+          pnpm --filter example exec tsc --noEmit
+      - name: Lint
+        run: pnpm run lint
+      - name: Install Playwright
+        run: |
+          pnpm --filter e2e exec playwright install --with-deps chromium firefox
+      - name: Test (headed)
+        run: xvfb-run -a --server-args="-screen 0 1280x800x24" pnpm --filter e2e run test:headed
+      - name: Start PulseAudio with null sink
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y pulseaudio
+          pulseaudio -D --exit-idle-time=-1
+          pactl load-module module-null-sink sink_name=ci-sink >/dev/null
+          pactl set-default-sink ci-sink
+      - name: Test (headless)
+        run: pnpm --filter e2e run test:headless
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-results
+          path: e2e/test-results
