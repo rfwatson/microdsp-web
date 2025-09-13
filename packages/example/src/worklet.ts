@@ -12,11 +12,7 @@ class Processor extends AudioWorkletProcessor {
     this.pitchDetector = new WasmPitchDetector(sampleRate, 2_048, 512);
   }
 
-  process(
-    inputs: Float32Array[][],
-    _outputs: Float32Array[][],
-    _parameters: any,
-  ): boolean {
+  process(inputs: Float32Array[][]): boolean {
     if (inputs.length === 0 || inputs[0].length === 0) {
       return true;
     }

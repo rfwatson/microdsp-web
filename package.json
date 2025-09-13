@@ -4,6 +4,7 @@
   "main": "index.ts",
   "scripts": {
     "build": "pnpm run build:wasm && pnpm run build:lib && pnpm run build:example",
+    "lint": "pnpm --filter example run lint && pnpm --filter e2e run lint",
     "build:wasm": "wasm-pack build --target web --out-dir packages/lib/wasm --out-name main",
     "build:lib": "pnpm --filter @workspace/lib run build",
     "build:example": "pnpm --filter example run build",
