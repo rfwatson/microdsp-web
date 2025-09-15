@@ -38,7 +38,7 @@ importers:
       '@popperjs/core':
         specifier: ^2.11.8
         version: 2.11.8
-      '@workspace/lib':
+      '@rfwatson/microdsp-web':
         specifier: workspace:*
         version: link:../lib
       bootstrap:

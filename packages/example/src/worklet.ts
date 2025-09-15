@@ -1,4 +1,4 @@
-import { initSync, MpmPitchDetector } from '@workspace/lib';
+import { initSync, MpmPitchDetector } from '@rfwatson/microdsp-web';
 import type { ProcessorOptions } from './types';
 
 class Processor extends AudioWorkletProcessor {

@@ -1,14 +1,15 @@
 {
   "name": "pnpm-workspace",
+  "private": true,
   "version": "0.0.1",
   "main": "index.ts",
   "scripts": {
     "build": "pnpm run build:wasm && pnpm run build:lib && pnpm run build:example",
     "lint": "pnpm --filter example run lint && pnpm --filter e2e run lint",
     "build:wasm": "wasm-pack build --target web --out-dir packages/lib/wasm --out-name main",
-    "build:lib": "pnpm --filter @workspace/lib run build",
-    "build:example": "pnpm --filter example run build",
-    "start": "pnpm --filter example run dev"
+    "build:lib": "pnpm --filter @rfwatson/microdsp-web run build",
+    "build:example": "pnpm --filter @rfwatson/microdsp-web-example run build",
+    "start": "pnpm --filter @rfwatson/microdsp-web-example run dev"
   },
   "devDependencies": {
     "@types/node": "^24.3.1",

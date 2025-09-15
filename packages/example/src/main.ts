@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
 import 'bootstrap/scss/bootstrap.scss';
 import './style.scss';
-import wasmUrl from '@workspace/lib/wasm/main_bg.wasm?url';
+import wasmUrl from '@rfwatson/microdsp-web/wasm/main_bg.wasm?url';
 import workletUrl from './worklet.js?worker&url';
 
 interface Elements {

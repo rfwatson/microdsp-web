@@ -50,7 +50,7 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: 'pnpm --filter example run dev',
+    command: 'pnpm --filter @rfwatson/microdsp-web-example run dev',
     url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
   },

@@ -1,6 +1,5 @@
 {
-  "name": "@workspace/lib",
-  "private": true,
+  "name": "@rfwatson/microdsp-web",
   "version": "0.0.1",
   "type": "module",
   "scripts": {

@@ -1,6 +1,5 @@
 {
-  "name": "example",
-  "private": true,
+  "name": "@rfwatson/microdsp-web-example",
   "version": "0.0.1",
   "type": "module",
   "scripts": {
@@ -23,7 +22,7 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
-    "@workspace/lib": "workspace:*",
+    "@rfwatson/microdsp-web": "workspace:*",
     "bootstrap": "^5.3.8",
     "vite-plugin-wasm": "^3.5.0"
   }

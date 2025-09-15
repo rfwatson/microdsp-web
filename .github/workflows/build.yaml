@@ -19,9 +19,12 @@ jobs:
             ~/.cargo/git/db/
             target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-      - uses: jetli/wasm-pack-action@v0.4.0
-        with:
-          version: latest
+      # TODO: make step re-usable
+      - name: Install wasm-pack
+        run: |
+          curl -LO https://github.com/drager/wasm-pack/releases/download/v0.13.1/wasm-pack-v0.13.1-x86_64-unknown-linux-musl.tar.gz
+          tar xvzf wasm-pack-v0.13.1-x86_64-unknown-linux-musl.tar.gz
+          sudo cp wasm-pack-v0.13.1-x86_64-unknown-linux-musl/wasm-pack /usr/bin
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
@@ -37,8 +40,8 @@ jobs:
         run: pnpm run build
       - name: Check Typescript
         run: |
-          pnpm --filter lib exec tsc --noEmit
-          pnpm --filter example exec tsc --noEmit
+          pnpm --filter @rfwatson/microdsp-web exec tsc --noEmit
+          pnpm --filter @rfwatson/microdsp-web-example exec tsc --noEmit
       - name: Lint
         run: pnpm run lint
       - name: Install Playwright
@@ -84,9 +87,12 @@ jobs:
             ~/.cargo/git/db/
             target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-      - uses: jetli/wasm-pack-action@v0.4.0
-        with:
-          version: latest
+      # TODO: make step re-usable
+      - name: Install wasm-pack
+        run: |
+          curl -LO https://github.com/drager/wasm-pack/releases/download/v0.13.1/wasm-pack-v0.13.1-x86_64-unknown-linux-musl.tar.gz
+          tar xvzf wasm-pack-v0.13.1-x86_64-unknown-linux-musl.tar.gz
+          sudo cp wasm-pack-v0.13.1-x86_64-unknown-linux-musl/wasm-pack /usr/bin
       - uses: pnpm/action-setup@v4
         with:
           version: 10
