@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
 import 'bootstrap/scss/bootstrap.scss';
 import './style.scss';
-import wasmUrl from '@rfwatson/microdsp-web/wasm/main_bg.wasm?url';
+import { fetchWasm } from '@rfwatson/microdsp-web';
 import workletUrl from './worklet.js?worker&url';
 
 interface Elements {
@@ -34,7 +34,7 @@ class Example {
   constructor(
     audioContext: AudioContext,
     elements: Elements,
-    wasmModule: WebAssembly.Module,
+    moduleBytes: ArrayBuffer | Uint8Array,
   ) {
     this.el = elements;
 
@@ -45,7 +45,7 @@ class Example {
       this.handleAudioContextStateChange,
     );
 
-    this.nodes = this.buildNodes(wasmModule);
+    this.nodes = this.buildNodes(moduleBytes);
 
     // Event handlers
     this.bindEventHandlers();
@@ -65,7 +65,7 @@ class Example {
     }
   }
 
-  private buildNodes(wasmModule: WebAssembly.Module): Nodes {
+  private buildNodes(moduleBytes: ArrayBuffer | Uint8Array): Nodes {
     const gain = this.audioContext.createGain();
     gain.gain.value = 0.7;
     gain.connect(this.audioContext.destination);
@@ -75,7 +75,7 @@ class Example {
     oscillator.type = 'sine';
 
     const worklet = new AudioWorkletNode(this.audioContext, 'audio-worklet', {
-      processorOptions: { module: wasmModule },
+      processorOptions: { moduleBytes },
     });
     worklet.port.onmessage = this.handleWorkletMessage;
 
@@ -224,9 +224,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const audioContext = new AudioContext();
   await audioContext.audioWorklet.addModule(workletUrl);
 
-  const bytes = await (await fetch(wasmUrl)).arrayBuffer();
-  const module = await WebAssembly.compile(bytes);
-
+  const moduleBytes = await fetchWasm();
   const example = new Example(
     audioContext,
     {
@@ -240,7 +238,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       range: rangeEl,
       rangeLabel: rangeLabelEl,
     },
-    module,
+    moduleBytes,
   );
   example.tryUserMedia();
   document.documentElement.setAttribute('data-app-ready', 'true');

@@ -1,4 +1,4 @@
-import { initSync, MpmPitchDetector } from '@rfwatson/microdsp-web';
+import { initWasmSync, MpmPitchDetector } from '@rfwatson/microdsp-web';
 import type { ProcessorOptions } from './types';
 
 class Processor extends AudioWorkletProcessor {
@@ -7,7 +7,7 @@ class Processor extends AudioWorkletProcessor {
   constructor({ processorOptions }: { processorOptions: ProcessorOptions }) {
     super();
 
-    initSync(processorOptions.module);
+    initWasmSync(processorOptions.moduleBytes);
 
     this.pitchDetector = new MpmPitchDetector(sampleRate, 2_048, 512);
   }

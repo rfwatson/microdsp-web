@@ -1,3 +1,3 @@
 export interface ProcessorOptions {
-  module: WebAssembly.Module;
+  moduleBytes: ArrayBuffer | Uint8Array;
 }
