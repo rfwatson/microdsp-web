@@ -1,6 +1,11 @@
 {
   "name": "@rfwatson/microdsp-web",
   "version": "0.0.1",
+  "description": "A WebAssembly build of the microdsp crate",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rfwatson/microdsp-web.git"
+  },
   "type": "module",
   "scripts": {
     "build": "tsc && vite build"
