@@ -19,6 +19,6 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           scope: '@rfwatson'
       - run: pnpm install --frozen-lockfile
-      - run: pnpm publish --filter @rfwatson/microdsp-web
+      - run: pnpm publish --filter @rfwatson/microdsp-web --no-git-checks
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
